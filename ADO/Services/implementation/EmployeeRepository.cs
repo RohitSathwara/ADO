@@ -74,7 +74,7 @@ namespace ADO.Services.implementation
             using SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand("InsertEmployee", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100, emp.Name);
+            cmd.Parameters.AddWithValue("@Name", emp.Name);
             cmd.Parameters.AddWithValue("@Email", emp.Email);
             cmd.Parameters.AddWithValue("@Department", emp.Department);
 
