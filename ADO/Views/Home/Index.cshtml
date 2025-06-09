@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+<form id="loginForm">
+    <label>Username:</label><br />
+    <input type="text" id="username" /><br />
+    <label>Password:</label><br />
+    <input type="password" id="password" /><br />
+    <button type="submit">Login</button>
+</form>
+
+<div id="message"></div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            window.location.href = '/Home/Employees';
+        } else {
+            document.getElementById('message').innerText = 'Invalid username or password';
+        }
+    });
+</script>
